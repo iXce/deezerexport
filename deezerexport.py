@@ -22,6 +22,7 @@ try:
 except ImportError:  # python2
     from httplib import HTTPSConnection
 import sys
+import argparse
 
 deezer_api = "/2.0/"
 connection = HTTPSConnection("api.deezer.com")
@@ -44,10 +45,12 @@ def get_playlist(playlistid):
     return get_data(url)
 
 if __name__ == "__main__":
-    uid = int(sys.argv[1])
-    userdata = get_user_info(uid)
+    parser = argparse.ArgumentParser(description = 'Deezer export script')
+    parser.add_argument('uid', type = int, help = "User identifier")
+    args = parser.parse_args()
+    userdata = get_user_info(args.uid)
     print("Playlists for user %s" % userdata["name"])
-    playlists = get_user_playlists(uid)
+    playlists = get_user_playlists(args.uid)
     for row in playlists["data"]:
         playlistid = row["id"]
         playlist = get_playlist(playlistid)
