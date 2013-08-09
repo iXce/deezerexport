@@ -37,6 +37,6 @@ if __name__ == "__main__":
     for row in playlists["data"]:
         playlistid = row["id"]
         playlist = get_playlist(playlistid)
-        print "  Playlist %s" % playlist["title"]
+        print("  Playlist %s" % playlist["title"])
         for track in playlist["tracks"]["data"]:
-            print "    %s -- by %s" % (track["title"], track["artist"]["name"])
+            print("    %s -- by %s" % (track["title"], track["artist"]["name"]))
