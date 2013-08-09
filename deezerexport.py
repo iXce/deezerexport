@@ -21,7 +21,6 @@ try:
     from http.client import HTTPSConnection
 except ImportError:  # python2
     from httplib import HTTPSConnection
-import sys
 import argparse
 
 deezer_api = "/2.0/"
