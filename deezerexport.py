@@ -2,20 +2,18 @@
 
 import json
 try:
-    from urllib.request import urlopen
+    from http.client import HTTPSConnection
 except ImportError:  # python2
-    from urllib2 import urlopen
+    from httplib import HTTPSConnection
 import sys
 
-deezer_api = "https://api.deezer.com/2.0/"
+deezer_api = "/2.0/"
+connection = HTTPSConnection("api.deezer.com")
 
 def get_data(url):
-    req = urlopen(url)
-    try:
-        encoding = req.headers.get_content_charset()
-        return json.loads(req.read().decode(encoding))
-    except AttributeError:  # python2
-        return json.load(urlopen(url))
+    connection.request("GET", url)
+    response = connection.getresponse()
+    return json.loads(response.read().decode("utf-8"))
 
 def get_user_info(userid):
     url = deezer_api + "user/%d" % userid
